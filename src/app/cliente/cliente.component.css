@@ -1,0 +1,8 @@
+mat-grid-tile {
+    background: white;
+  }
+
+  .example-button-row button {
+    display: table-cell;
+    margin-right: 8px;
+  }

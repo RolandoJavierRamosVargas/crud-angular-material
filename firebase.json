@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "crud-material",
+      "public": "dist/crud-material",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}

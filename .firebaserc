@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "crud-material-caba3": {
+      "hosting": {
+        "crud-material": [
+          "crud-material-caba3"
+        ]
+      }
+    }
+  }
+}

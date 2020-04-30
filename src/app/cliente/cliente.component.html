@@ -1,0 +1,70 @@
+<div>
+  Esto es un nombre
+</div>
+
+<ng-container>
+  <form (ngSubmit)="enviar(form)" #form="ngForm">
+    <mat-grid-list class="container" cols="2">
+        <mat-grid-tile> 
+          
+          <div class="input-container">
+            <mat-form-field>
+              <input [(ngModel)]="cliente.nombre" name="nombre" #nombre="ngModel" matInput placeholder="Full Name" required>
+              <mat-error *ngIf="nombre.errors?.required">Se requiere el nombre </mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field> 
+              <input [(ngModel)]="cliente.email" name="email" #email="ngModel" matInput placeholder="Email" required>
+              <mat-error *ngIf="email.errors?.required">Se requiere el email</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input [(ngModel)]="cliente.mobile" name="mobile" #mobile="ngModel" matInput placeholder="Mobile" required minlength=9>
+              <mat-error *ngIf="mobile.errors?.required">Se requiere el mobile</mat-error>
+              <mat-error *ngIf="mobile.errors?.minlength">Se requiere mas de 9 caracteres</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input [(ngModel)]="cliente.city" name="city" matInput placeholder="City">
+            </mat-form-field>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="input-container">
+            <div class="padding-bottom-10">
+              <mat-radio-group [(ngModel)]="cliente.sexo" name="sexo" class="radio-button" aria-label="Sexo">
+                <mat-radio-button value="1">Masculino</mat-radio-button>
+                <mat-radio-button value="2">Femenino</mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+            <mat-form-field style="margin-top: 10;">
+              <mat-label>Department</mat-label>
+              <mat-select [(ngModel)]="cliente.department"  name="department">
+                <mat-option value="default" selected="true" disabled="disabled"> select option </mat-option>
+                <mat-option *ngFor="let department of departments" [value]="department.value">{{department.nombre}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Choose a date</mat-label>
+              <input [(ngModel)]="cliente.date" name="date" matInput [matDatepicker]="picker">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            
+            <mat-checkbox [(ngModel)]="cliente.permanent" name="permanent"> Permanent Employee</mat-checkbox>
+            <br><br>
+            <div class="example-button-row">
+              <button *ngIf="data==null" [disabled]="!form.valid"  mat-raised-button  color="primary" type="submit">Save</button>
+              <button *ngIf="data!=null" [disabled]="!form.valid" type="submit" mat-raised-button  color="primary" type="submit">Editar</button>
+              <button mat-raised-button type="button" (click)="limpiar()" color="accent">Clear</button>
+            </div>
+
+          </div>
+          
+        </mat-grid-tile>
+       
+      </mat-grid-list>
+    </form>
+</ng-container>
+
+  

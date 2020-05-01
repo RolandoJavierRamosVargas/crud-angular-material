@@ -6,7 +6,7 @@ export class Cliente {
     city:string;
     sexo:string;
     department:string;
-    date:string;
+    date:Date;
     permanent:boolean;
 }
 

@@ -14,13 +14,15 @@ import { ClienteComponent } from './cliente/cliente.component';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { ClienteService } from './services/cliente.service';
 import { ClientesComponent } from './clientes/clientes.component';
+import { AlertaComponent } from './alerta/alerta.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     ClienteComponent,
-    ClientesComponent
+    ClientesComponent,
+    AlertaComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +36,6 @@ import { ClientesComponent } from './clientes/clientes.component';
   ],
   providers: [ClienteService],
   bootstrap: [AppComponent],
-  entryComponents: [ClienteComponent]
+  entryComponents: [ClienteComponent,AlertaComponent]
 })
 export class AppModule { }

@@ -9,6 +9,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 
 import {MatDialog} from '@angular/material/dialog';
 import { ClienteComponent } from '../cliente/cliente.component';
+import { AlertaComponent } from '../alerta/alerta.component';
 
 @Component({
   selector: 'app-clientes',
@@ -29,7 +30,8 @@ export class ClientesComponent implements OnInit {
 
   ngOnInit(): void {
     this.clienteService.getClientes().subscribe(clientes=>{
-      this.clientes=clientes 
+      
+      this.clientes=clientes
       this.dataSource=new MatTableDataSource(clientes);
       this.dataSource.sort=this.sort;
       this.dataSource.paginator = this.paginator;  
@@ -51,8 +53,20 @@ export class ClientesComponent implements OnInit {
     });
   }
 
+  openDialogDelete(key:string): void {
+
+    const dialogRef = this.dialog.open(AlertaComponent, {
+      position : {top:'10%',left:'40%'},
+      width: '20%',
+      height:'30%',
+    });
+
+    dialogRef.afterClosed().subscribe(
+      decision =>decision ? this.delete(key) : ''
+    );
+  }
+
   edit(cliente:Cliente){
-    console.log("el cliente",cliente);
     const dialogRef = this.dialog.open(ClienteComponent, {
       width: '50%',
       height:'60%',
@@ -69,6 +83,7 @@ export class ClientesComponent implements OnInit {
       this.openSnackBar("Ha ocurrido un error","ERROR")
     });
   }
+
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       horizontalPosition: "right",

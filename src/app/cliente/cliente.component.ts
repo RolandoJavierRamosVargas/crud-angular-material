@@ -3,8 +3,6 @@ import { Cliente } from '../models/cliente';
 import { DepartmentsService } from '../services/departments.service';
 import { ClienteService } from '../services/cliente.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
-
-
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 
@@ -23,11 +21,15 @@ export class ClienteComponent implements OnInit {
               private _snackBar: MatSnackBar,
               public dialogRef: MatDialogRef<ClienteComponent>,
               @Inject(MAT_DIALOG_DATA) public data: Cliente) {
-                console.log("esta es la data",data);
-                (data!=null)?this.cliente=data:this.cliente=new Cliente();
                 
-               }
-
+                if(data!=null){
+                  let dateOriginal=this.convertToDate(data);
+                  this.cliente=data;
+                  this.cliente.date=dateOriginal;
+                }else{
+                  this.cliente=new Cliente();
+                }
+              }
              
 
   ngOnInit(): void {
@@ -35,6 +37,11 @@ export class ClienteComponent implements OnInit {
       this.departments.push(department);
     })
 
+  }
+  convertToDate(data:any){
+    const {seconds} = data.date as any;
+    var todate=new Date(seconds*1000);
+    return todate;
   }
 
   enviar(form:any){
@@ -45,6 +52,8 @@ export class ClienteComponent implements OnInit {
     }
   }
   crearcliente(cliente:Cliente){
+    console.log("cliente",cliente);
+    console.log("la fecha en string",cliente.date.toDateString());
     this.clienteService.createCliente(this.cliente)
     .then(res=>{
       this.openSnackBar('Se ha registado con exito','Thanks');
